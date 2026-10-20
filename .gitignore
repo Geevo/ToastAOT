@@ -1,0 +1,27 @@
+# Build output
+**/bin/
+**/obj/
+artifacts/
+publish/
+TestResults/
+*.nupkg
+*.snupkg
+
+# Local IDE settings
+.vs/
+.idea/
+*.user
+*.suo
+*.sln.docstates
+
+# Local data and credentials
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
+*.log
+*.dmp
+.DS_Store
+Thumbs.db

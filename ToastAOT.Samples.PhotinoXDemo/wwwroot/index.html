@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'">
+  <title>ToastAOT notification test</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">PHOTINOX / TOASTAOT</p>
+      <h1>Notifications, end to end.</h1>
+      <p>Send a Windows toast, reply to it, and watch the callback arrive here.</p>
+    </header>
+    <section class="controls" aria-label="Notification controls">
+      <button data-command="send" class="primary">Send test notification</button>
+      <button data-command="send-exit">Send and exit</button>
+      <button data-command="refresh">Refresh history</button>
+      <button data-command="clear">Clear test history</button>
+      <button data-command="exit">Exit app</button>
+    </section>
+    <section aria-label="Application icon tests">
+      <h2>Application icon tests</h2>
+      <p>Check each new toast in Notification Center. Test a custom icon, omit it, then test the custom icon again followed by a missing file.</p>
+      <div class="controls">
+        <button data-command="icon-custom">Use magenta T icon</button>
+        <button data-command="icon-omitted">Omit icon</button>
+        <button data-command="icon-missing">Use missing icon file</button>
+      </div>
+    </section>
+    <section class="status" aria-live="polite">
+      <h2>Application</h2>
+      <p id="status">Connecting to the native host…</p>
+      <p id="process" class="muted"></p>
+    </section>
+    <section>
+      <h2>Last activation</h2>
+      <dl>
+        <dt>Action</dt><dd id="action">No callback yet</dd>
+        <dt>Reply</dt><dd id="reply">—</dd>
+        <dt>Selection</dt><dd id="choice">—</dd>
+      </dl>
+      <p class="muted">For a closed-app test, choose “Send and exit”, then click the toast in Notification Center. Use test data only; this demo logs replies locally.</p>
+    </section>
+    <section>
+      <h2>Windows notification history</h2>
+      <pre id="history">Waiting for the host.</pre>
+    </section>
+    <section>
+      <h2>Event log</h2>
+      <pre id="events" class="events" aria-live="polite">Waiting for the host.</pre>
+    </section>
+  </main>
+</body>
+</html>

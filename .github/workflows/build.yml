@@ -1,0 +1,80 @@
+name: ToastAOT build, test and NativeAOT
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run_windows_integration:
+        description: Run full activation suite on a standard-user Windows notifications runner
+        type: boolean
+        default: false
+jobs:
+  portable:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-2022]
+        framework: [net8.0, net9.0, net10.0, net11.0]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+            10.0.x
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.x'
+          dotnet-quality: preview
+      - run: dotnet run --project ToastAOT.Tests -c Release -f ${{ matrix.framework }} -p:TreatWarningsAsErrors=true
+      - name: Verify C# whitespace
+        if: runner.os == 'Windows' && matrix.framework == 'net11.0'
+        run: dotnet format whitespace ToastAOT.sln --verify-no-changes --verbosity minimal
+      - name: Verify C# style
+        if: runner.os == 'Windows' && matrix.framework == 'net11.0'
+        run: dotnet format style ToastAOT.sln --verify-no-changes --severity warn --verbosity minimal
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [net8.0, net9.0, net10.0, net11.0]
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.x'
+          dotnet-quality: preview
+      - run: dotnet publish ToastAOT.Tests -c Release -f ${{ matrix.framework }} -r win-x64 -p:PublishAot=true -p:TreatWarningsAsErrors=true -p:IlcTreatWarningsAsErrors=true -p:TrimmerSingleWarn=false -o artifacts/ToastAOT.Tests/aot/${{ matrix.framework }}
+      - run: ./artifacts/ToastAOT.Tests/aot/${{ matrix.framework }}/ToastAOT.Tests.exe
+      - run: dotnet publish ToastAOT.Samples.ConsoleDemo -c Release -f ${{ matrix.framework }}-windows -r win-x64 -p:TreatWarningsAsErrors=true -p:IlcTreatWarningsAsErrors=true -o artifacts/ToastAOT.Samples.ConsoleDemo/${{ matrix.framework }}-windows
+      - run: dotnet publish ToastAOT.Samples.PhotinoXDemo -c Release -f ${{ matrix.framework }}-windows -p:IlcTreatWarningsAsErrors=true -o artifacts/ToastAOT.Samples.PhotinoXDemo/${{ matrix.framework }}-windows
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ToastAOT-win-x64-${{ matrix.framework }}
+          path: artifacts/
+  windows-integration:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        framework: [net8.0, net9.0, net10.0, net11.0]
+    if: github.event_name == 'workflow_dispatch' && inputs.run_windows_integration
+    runs-on: [self-hosted, Windows, notifications]
+    env:
+      TOASTAOT_REQUIRE_COLD_START: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.x'
+          dotnet-quality: preview
+      - run: dotnet publish ToastAOT.Tests -c Release -f ${{ matrix.framework }} -r win-x64 -p:PublishAot=true -p:IlcTreatWarningsAsErrors=true -p:TrimmerSingleWarn=false -o artifacts/ToastAOT.Tests/aot/${{ matrix.framework }}
+      - run: ./artifacts/ToastAOT.Tests/aot/${{ matrix.framework }}/ToastAOT.Tests.exe --windows
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Windows-integration-${{ matrix.framework }}
+          path: artifacts/

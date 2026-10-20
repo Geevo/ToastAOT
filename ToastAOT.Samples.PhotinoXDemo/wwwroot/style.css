@@ -1,0 +1,29 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #1c293b;
+  background: #f5f7fa;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 960px; padding: 32px 36px; margin: auto; }
+header { margin-bottom: 24px; }
+h1 { font-size: 32px; letter-spacing: -1px; margin: 6px 0 10px; }
+h2 { font-size: 16px; margin: 0 0 12px; }
+p { line-height: 1.6; margin: 6px 0; }
+.eyebrow { color: #2856a9; font-size: 12px; font-weight: 700; letter-spacing: 1.4px; }
+.muted { color: #596679; font-size: 13px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; border: 0; background: transparent; }
+button { font: inherit; font-size: 13px; padding: 10px 14px; border: 1px solid #c6cfdb; border-radius: 6px; background: white; color: inherit; cursor: pointer; }
+button:hover { background: #eaf0f9; }
+button:focus-visible { outline: 3px solid #81a9ec; outline-offset: 3px; }
+button:disabled { opacity: .5; cursor: wait; }
+button.primary { color: white; background: #2856a9; border-color: #2856a9; }
+button.primary:hover { background: #1d4387; }
+section { margin-top: 16px; padding: 20px; background: white; border: 1px solid #dce2eb; border-radius: 8px; }
+dl { display: grid; grid-template-columns: 85px 1fr; gap: 8px; font-size: 14px; }
+dt { color: #596679; }
+dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.7 Consolas, monospace; }
+.events { max-height: 190px; overflow-y: auto; }
+@media (max-width: 600px) { main { padding: 20px; } h1 { font-size: 26px; } }

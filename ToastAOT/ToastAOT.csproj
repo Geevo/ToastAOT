@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ToastAOT</AssemblyName>
+    <RootNamespace>ToastAOT</RootNamespace>
+    <PackageId>ToastAOT</PackageId>
+    <Description>NativeAOT-compatible Windows toast notifications for .NET.</Description>
+    <Authors>Luke</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <TargetFrameworks>net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsAotCompatible>true</IsAotCompatible>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+</Project>
