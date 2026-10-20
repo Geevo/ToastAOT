@@ -3,9 +3,16 @@
     <AssemblyName>ToastAOT</AssemblyName>
     <RootNamespace>ToastAOT</RootNamespace>
     <PackageId>ToastAOT</PackageId>
+    <Version>0.1.0-preview.1</Version>
     <Description>NativeAOT-compatible Windows toast notifications for .NET.</Description>
-    <Authors>Luke</Authors>
+    <Authors>Luke (Geevo)</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright (c) 2026 Luke (Geevo)</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/Geevo/ToastAOT</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Geevo/ToastAOT</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>windows;toast;notifications;win32;dotnet;c#;aot;nativeaot;trimming</PackageTags>
     <TargetFrameworks>net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -15,4 +22,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="../LICENSE" Pack="true" PackagePath="/" Visible="false" />
+  </ItemGroup>
 </Project>

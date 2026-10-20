@@ -1,5 +1,8 @@
 # ToastAOT
 
+[![Build](https://github.com/Geevo/ToastAOT/actions/workflows/build.yml/badge.svg)](https://github.com/Geevo/ToastAOT/actions/workflows/build.yml)
+[![NuGet](https://img.shields.io/nuget/vpre/ToastAOT.svg)](https://www.nuget.org/packages/ToastAOT)
+
 ## What is ToastAOT?
 
 A lightweight C# library for Windows toast notifications, with support for NativeAOT and trimming. It runs in unpackaged Win32 desktop applications without the Windows App SDK runtime or third-party dependencies.
@@ -10,7 +13,7 @@ ToastAOT aims to follow the same syntax and usage patterns as Microsoft's [Win32
 
 Use ToastAOT when your desktop application needs actionable Windows notifications and you want to publish with NativeAOT or avoid deploying the Windows App SDK runtime.
 
-It supports buttons, text input, selection lists, images, progress updates, notification history and activation while the application is running or closed. It is a source-level subset of Microsoft's API; see the [feature comparison](doc/FEATURE_PARITY.md) for differences.
+It supports buttons, text input, selection lists, images, progress updates, notification history and activation while the application is running or closed. It is a source-level subset of Microsoft's API; see the [feature comparison](https://github.com/Geevo/ToastAOT/blob/main/doc/FEATURE_PARITY.md) for differences.
 
 ## Requirements
 
@@ -22,7 +25,11 @@ Elevated processes are not supported.
 
 ## Installation
 
-Build from source and add a project reference:
+```powershell
+dotnet add path\to\YourApp.csproj package ToastAOT --version 0.1.0-preview.1
+```
+
+Or build from source and add a project reference:
 
 ```powershell
 dotnet add path\to\YourApp.csproj reference ToastAOT\ToastAOT.csproj
@@ -89,7 +96,7 @@ finally
 
 Choose your own permanent AppUserModelID and generate a CLSID once for your application. Keep both across upgrades. Parameterless `Register()` instead derives an identity from the executable path; moving the executable changes it.
 
-Subscribe on every launch. GUI applications should run their normal message loop instead of calling `WaitForActivation`, and dispatch callbacks to the UI thread. A callback can arrive before the first window exists. See [registration and activation](doc/LIFECYCLE.md).
+Subscribe on every launch. GUI applications should run their normal message loop instead of calling `WaitForActivation`, and dispatch callbacks to the UI thread. A callback can arrive before the first window exists. See [registration and activation](https://github.com/Geevo/ToastAOT/blob/main/doc/LIFECYCLE.md).
 
 ### Notification history
 
@@ -123,7 +130,7 @@ notification.Progress = new AppNotificationProgressData(1)
 manager.Show(notification);
 ```
 
-Use `UpdateAsync(data, tag, group)` to update progress. Value and status bind by default; optional title and value text require `BindTitle()` and `BindValueStringOverride()`. See [API differences](doc/FEATURE_PARITY.md) for sequence and history behaviour.
+Use `UpdateAsync(data, tag, group)` to update progress. Value and status bind by default; optional title and value text require `BindTitle()` and `BindValueStringOverride()`. See [API differences](https://github.com/Geevo/ToastAOT/blob/main/doc/FEATURE_PARITY.md) for sequence and history behaviour.
 
 ## NativeAOT deployment
 
@@ -145,9 +152,9 @@ Publishing requires the Visual Studio C++ build tools and a Windows SDK. The pub
 
 ## Samples
 
-- [Console](ToastAOT.Samples.ConsoleDemo): buttons, reply input and closed-app activation.
-- [PhotinoX](ToastAOT.Samples.PhotinoXDemo): a desktop WebView sample with reply input, selections, progress and history.
+- [Console](https://github.com/Geevo/ToastAOT/tree/main/ToastAOT.Samples.ConsoleDemo): buttons, reply input and closed-app activation.
+- [PhotinoX](https://github.com/Geevo/ToastAOT/tree/main/ToastAOT.Samples.PhotinoXDemo): a desktop WebView sample with reply input, selections, progress and history.
 
 ## Licence
 
-[MIT](LICENSE).
+[MIT](https://github.com/Geevo/ToastAOT/blob/main/LICENSE).
